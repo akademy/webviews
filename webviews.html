@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title></title>
+    <meta content="">
+    <style></style>
+  </head>
+  <body></body>
+  <foot>
+	  <script src="webviews.js"></script>
+	  <script>
+		var config = {};
+
+		config['addresses'] = [
+				{
+					website:"http://localhost:3001/",
+					title : "All entities"
+				},
+				{
+					website:"http://localhost:3001/attrs/http%3A%2F%2Fannalist.net%2Fannalist_sitedata%2Fc%2FCarolan_Guitar%2Fd%2FPerson%2FAdrian_Hazzard",
+					title : "Person Adrian Hazzard"
+				},
+				{
+					website:"http://localhost:3001/attrs/http%3A%2F%2Fannalist.net%2Fannalist_sitedata%2Fc%2FCarolan_Guitar%2Fd%2FPerformance%2FCaroling_Carolan",
+					title : "Performance Caroling Carolan"
+				}
+			];
+		
+		akademy.webviews( config );
+	  </script>
+  </foot>
+</html>

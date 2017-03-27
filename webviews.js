@@ -56,7 +56,7 @@ akademy.webviews = akademy.webviews ||
 			var style = document.createElement("style");
 			style.appendChild(document.createTextNode(
 				" .iframe-wrap {width:" + _size.w + "px;height:" + (_size.h+25) +  "px;padding:0;margin:0;display:inline-block;background-color:white;margin:5px;border:3px solid black}" +
-				" .iframe-wrap.full {position:absolute;top:20px;left:20px;}" +
+				" .iframe-wrap.full {position:absolute;top:20px;left:20px;border:0}" +
 				" .iframe-wrap.loading { border-color: blue; }" +
 				" .iframe-wrap.loaded-ok { border-color: limegreen; }" +
 				" .iframe-wrap.loaded-restricted { border-color: yellow; }" +
@@ -70,7 +70,7 @@ akademy.webviews = akademy.webviews ||
 				" .iframe-wrap button {visibility:hidden;z-index:200;width:59px}" +
 				" .iframe-wrap.full button {visibility:visible;position:relative;left:" + (_fullSize.w + 20) + "px;}" +
 				" .iframe-wrap.full a:hover, .iframe-wrap.full a:hover.hide {background-color: rgba(0,0,0,0);color:transparent;}" +
-				" .iframe-wrap iframe {width:" + _scaledSize.w + "px;height:" + _scaledSize.h + "px;transform: scale(" + _scale + ");position:absolute;transform-origin: 0 0;overflow: hidden;background-color:white}" +
+				" .iframe-wrap iframe {width:" + _scaledSize.w + "px;height:" + _scaledSize.h + "px;transform: scale(" + _scale + "); position:absolute; transform-origin:0 0; overflow:hidden; background-color:white; border-color:black}" +
 				" .iframe-wrap.full iframe {width:" + _fullSize.w + ";height:" + _fullSize.h + "px;transform: scale(1);z-index:100;overflow: auto;}" +
 				" .iframe-wrap.loading iframe { /*display:none*/ }" +
 				" .iframe-wrap.loaded iframe { /*display:block*/ }"

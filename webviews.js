@@ -55,17 +55,18 @@ akademy.webviews = akademy.webviews ||
 
 			var style = document.createElement("style");
 			style.appendChild(document.createTextNode(
-				" .iframe-wrap {width:" + _size.w + "px;height:" + _size.h + "px;padding:0;margin:0;display:inline-block;background-color:white;margin:5px;border:3px solid black}" +
+				" .iframe-wrap {width:" + _size.w + "px;height:" + (_size.h+25) +  "px;padding:0;margin:0;display:inline-block;background-color:white;margin:5px;border:3px solid black}" +
 				" .iframe-wrap.full {position:absolute;top:20px;left:20px;}" +
 				" .iframe-wrap.loading { border-color: blue; }" +
 				" .iframe-wrap.loaded-ok { border-color: limegreen; }" +
 				" .iframe-wrap.loaded-restricted { border-color: yellow; }" +
 				" .iframe-wrap.loaded-errored { border-color: red; }" +
 				" .iframe-wrap.error { border-color: #f55; }" +
-				" .iframe-wrap a {width:" + _size.w + "px;height:" + _size.h + "px;padding:0;margin:0;display:block;position:absolute;background-color:transparent;text-align:center;font-size:20px;font-weight:bold;}" +
+				" .iframe-wrap a {width:" + _size.w + "px;height:" + _size.h + "px;padding:0;margin:0;display:block;position:absolute;background-color:transparent;text-align:center;font-size:20px;font-weight:bold;cursor:hand}" +
 				" .iframe-wrap a:hover {background-color: rgba(0,0,0,0.5);color:white;}" +
 				" .iframe-wrap a.hide {color: transparent }" +
 				" .iframe-wrap a:hover.hide {color: white }" +
+				" .iframe-wrap p {position:relative; color:black; top:" + _size.h + "px; margin:4px 4px;}" +
 				" .iframe-wrap button {visibility:hidden;z-index:200;width:59px}" +
 				" .iframe-wrap.full button {visibility:visible;position:relative;left:" + (_fullSize.w + 20) + "px;}" +
 				" .iframe-wrap.full a:hover, .iframe-wrap.full a:hover.hide {background-color: rgba(0,0,0,0);color:transparent;}" +
@@ -86,6 +87,8 @@ akademy.webviews = akademy.webviews ||
 					iframe      = document.createElement("iframe"),
 					a           = document.createElement("a"),
 					aText       = document.createTextNode( _views[i].title ),
+					pTitle      = document.createElement( "p" ),
+					pTitleText  = document.createTextNode( _views[i].title ),
 					br          = document.createElement("br"),
 					buttonClose      = document.createElement("button"),
 					buttonCloseText  = document.createTextNode( "✕" ), // ✕
@@ -119,8 +122,13 @@ akademy.webviews = akademy.webviews ||
 				a.appendChild(aText);
 				div.appendChild(iframe);
 				div.appendChild(a);
+
+				pTitle.appendChild(pTitleText);
+				div.appendChild(pTitle);
+
 				buttonClose.appendChild(buttonCloseText);
 				buttonRefresh.appendChild(buttonRefreshText);
+
 
 				div.appendChild(buttonClose);
 				div.appendChild(document.createElement("br"));
@@ -129,10 +137,11 @@ akademy.webviews = akademy.webviews ||
 				_element.appendChild(div);
 
 				updateIFrame( iframe, _views[i], 50 * (i+1) );
-				setTimeout( updateATitle.bind(this,a), 2500 );
+				setTimeout( updateATitle.bind(this, a, aText ), 2500 );
 			}
 
-			function updateATitle(a) {
+			function updateATitle(a, aText) {
+				a.replaceChild( document.createTextNode("⌕ zoom"), aText );
 				a.classList.add("hide");
 			}
 

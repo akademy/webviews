@@ -16,7 +16,8 @@ akademy.webviews = akademy.webviews ||
 			width: 206,
 			height: 136,
 			scale: 0.2,
-			element: document.body
+			element: document.body,
+			autoReload: 0
 		};
 
 		config = config || {};
@@ -30,7 +31,8 @@ akademy.webviews = akademy.webviews ||
 				h : _size.h * (1/_scale)
 			},
 			_element = config.element || configDefault.element,
-			_views = config.views || configDefault.views;
+			_views = config.views || configDefault.views,
+			_autoReload = config.autoReload || configDefault.autoReload;
 
 		var	_fullSize = {
 				w: _size.w * 4,
@@ -57,7 +59,7 @@ akademy.webviews = akademy.webviews ||
 				" .iframe-wrap.full {position:absolute;top:20px;left:20px;}" +
 				" .iframe-wrap.loading { border-color: blue; }" +
 				" .iframe-wrap.loaded-ok { border-color: limegreen; }" +
-				" .iframe-wrap.loaded-restricted { border-color: green; }" +
+				" .iframe-wrap.loaded-restricted { border-color: yellow; }" +
 				" .iframe-wrap.loaded-errored { border-color: red; }" +
 				" .iframe-wrap.error { border-color: #f55; }" +
 				" .iframe-wrap a {width:" + _size.w + "px;height:" + _size.h + "px;padding:0;margin:0;display:block;position:absolute;background-color:transparent;text-align:center;font-size:20px;font-weight:bold;}" +
@@ -137,7 +139,14 @@ akademy.webviews = akademy.webviews ||
 			function updateIframeSrc(view) {
 				view.status = "loading"; // Set "real" loading, not just about:blank page loaded!
 				this.parentNode.classList.add("loading");
-				this.setAttribute("src", view.url );
+
+				try {
+					this.setAttribute("src", view.url);
+				}
+				catch(all) {
+					// iFrame restricter... this does not catch anything, as nothing is thrown... :(
+					divParent.classList.add("loaded-restricted");
+				}
 			}
 
 			function iFrameOnLoad( view ) {
@@ -168,9 +177,20 @@ akademy.webviews = akademy.webviews ||
 								divParent.classList.add("loaded-ok");
 							}
 						}
+
+						var reload = 0;
+						if( view.autoReload > 0 ) {
+							reload = view.autoReload;
+						}
+						else if( _autoReload ) {
+							reload = _autoReload;
+						}
+						if( reload > 0 ) {
+							updateIFrame( this, view, reload * 1000 );
+						}
 					}
 					catch(all) {
-					    //Not allowed access to iframe as on another domain.
+					    //Not allowed access to iframe as likely on another domain.
 						divParent.classList.add("loaded-restricted");
 					}
 				}

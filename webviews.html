@@ -8,14 +8,14 @@
   	<h1>WebViews</h1>
   	<p>An example use of WebViews. iframes of various webpages.</p>
   	<div id="views"></div>
-	<p>
-		<ul>
-			<li>Green means load and check OK.</li>
-			<li>Yellow means something loaded correctly but I can't access the iFrame due to security restrictions</li>
-			<li>Red means there was some error loading or that a check failed.</li>
-			<li>Blue is used when it is loading. (At the moment websites which timeout are also shown in blue)</li>
-		</ul>
-	</p>
+	<p>The border of each view shows if it loaded correctly. There should be three green and one red on this page.</p>
+	<ul>
+		<li>Green means load and check OK.</li>
+		<li>Yellow means something loaded correctly but I can't access the iFrame due to security restrictions.</li>
+		<li>Red means there was some error loading or that a check failed.</li>
+		<li>Blue is used when it is loading. (At the moment websites which timeout are also shown in blue)</li>
+	</ul>
+
   	<p>Here's another <a href="webviews-default-config.html">example</a>.</p>
   	<p>If you like it, feel free to <a href="http://www.akademy.co.uk/me/donate.php">buy me a beer</a></p>
   </body>
@@ -27,7 +27,7 @@
 			views : [
 				{
 					url: "tester/one.html",
-					title : "Example page"
+					title : "Long page"
 				},
 				{
 					url: "tester/two.html",

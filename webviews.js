@@ -4,14 +4,15 @@ akademy.webviews = akademy.webviews ||
 
 		var configDefault = {
 			views : [
-				{url:"http://www.akademy.co.uk", title : "1 OK"},
-				{url:"http://wouldlike.gift", title : "2 OK"},
-				{url:"http://blog.akademy.co.uk", title : "3 OK"},
-				{url:"httpf://error.example.com", title : "4 Error Bad schema"},
-				{url:"http://!$&'()*+,;=.com", title : "5 Error Bad URL"},
-				{url:"http://qweetergfsadgdvvbboisfgergerhjokjnmtn.com", title : "6 Unknown website"},
-				{url:"http:/local", title : "7 OK", textCheck: "Not Found"},
-				{url:"http://127.0.0.1", title : "8 OK"}
+				// This is a random collection of websites (partly random because I have no idea what domain it will be run on)
+				{url:"http://wouldlike.gift", title : "1 loaded but restricted"},
+				{url:"http://blog.akademy.co.uk/?p=1261&preview=true", title : "2 loaded but restricted"},
+				{url:"httpf://error.example.com", title : "3 Error Bad schema"},
+				{url:"http://!$&'()*+,;=.com", title : "4 Error Bad URL"},
+				{url:"http://qweetergfsadgdvvbboisfgergerhjokjnmtn.com", title : "5 Unknown website"},
+				{url:"http:/local", title : "6 Text found", textCheck: "Not Found"},
+				{url:"http://127.0.0.1", title : "7 OK"},
+				{url:"http://www.bbc.co.uk", title : "8 Not Allowed"}
 			],
 			width: 206,
 			height: 136,

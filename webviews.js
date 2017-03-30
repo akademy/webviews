@@ -59,7 +59,7 @@ akademy.webviews = akademy.webviews ||
 				" .iframe-wrap.full {position:absolute;top:20px;left:20px;border:0}" +
 				" .iframe-wrap.loading { border-color: blue; }" +
 				" .iframe-wrap.loaded-ok { border-color: limegreen; }" +
-				" .iframe-wrap.loaded-restricted { border-color: yellow; }" +
+				" .iframe-wrap.loaded-restricted { border-color: #e5d610; }" +
 				" .iframe-wrap.loaded-errored { border-color: red; }" +
 				" .iframe-wrap.error { border-color: #f55; }" +
 				" .iframe-wrap a {width:" + _size.w + "px;height:" + _size.h + "px;padding:0;margin:0;display:block;position:absolute;background-color:transparent;text-align:center;font-size:20px;font-weight:bold;cursor:hand}" +

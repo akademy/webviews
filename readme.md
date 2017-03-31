@@ -21,9 +21,9 @@ You can use them for:
 
 Setup
 -----
-The file webviews.html shows a typical set up.
+The file [webviews.html](https://bitbucket.org/akademy/webviews/src/7cd1dddffc95a66a7d0543f1b015149c63b875da/webviews.html?at=master) shows a typical set up.
 
-First embed this little script:
+First embed the little script:
 
     <script src="webviews.js"></script>
 
@@ -45,19 +45,24 @@ Then set up a config object, for example two web pages, one with an auto reload 
             // more webpages here...
         ]
 
+Now pass it into WebViews:
+
+    akademy.webviews( config );
+
+
 The full set of options:
 
-- config.element : THe HTML element you would like the webviews to
+- `config.element` : THe HTML element you would like the webviews to
  be put. Default: <body>
-- config.views: an array of objects holding the webpages to load. (Technically optional, as it'll load it's own list if not specified)
- - config.views.url: the url of the webpage. Mandatory.
- - config.views.title: the name to show underneath the WebView. Optional.
- - config.views.autoReload: Number of seconds to wait before reloading. Optional. Default is no refresh. Overrules the config.refresh value.
- - config.views.textCheck: A string to look for inside the iframe (see restrictions section). Optional. Default is no check.
-- config.width: Width of a minimised WebView. Default is 206.
-- config.height: Height of a minimised WebView. Default is 136.
-- config.scale: Scale amount of the webpage within a minimised WebView. Default is 0.2.
-- config.autoReload: An auto reload value for all the WebViews.
+- `config.views`: an array of objects holding the webpages to load. (Technically optional, as it'll load it's own list if not specified)
+ - `config.views.url`: the url of the webpage. Mandatory.
+ - `config.views.title`: the name to show underneath the WebView. Optional.
+ - `config.views.autoReload`: Number of seconds to wait before reloading. Optional. Default is no refresh. Overrules the `config.refresh` value.
+ - `config.views.textCheck`: A string to look for inside the iframe (see restrictions section). Optional. Default is no check.
+- `config.width`: Width of a minimised WebView. Default is 206.
+- `config.height`: Height of a minimised WebView. Default is 136.
+- `config.scale`: Scale amount of the webpage within a minimised WebView. Default is 0.2.
+- `config.autoReload`: An auto reload value for all the WebViews.
 
 Border colour keys
 ------------------

@@ -84,6 +84,10 @@ akademy.webviews = akademy.webviews ||
 
 				_views[i].status = "none";
 
+				if( !_views[i].title ) {
+					_views[i].title = "WebView" + (i+1)
+				}
+
 				var div         = document.createElement("div"),
 					iframe      = document.createElement("iframe"),
 					a           = document.createElement("a"),

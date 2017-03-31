@@ -192,15 +192,14 @@ akademy.webviews = akademy.webviews ||
 							}
 						}
 
-						var reload = 0;
-						if( view.autoReload > 0 ) {
-							reload = view.autoReload;
-						}
-						else if( _autoReload ) {
-							reload = _autoReload;
-						}
-						if( reload > 0 ) {
-							updateIFrame( this, view, reload * 1000 );
+						if( view.autoReload > 0 || _autoReload > 0 ) {
+							var reload = _autoReload;
+							if (view.autoReload > 0) {
+								reload = view.autoReload;
+							}
+							if (reload > 0) {
+								updateIFrame(this, view, reload * 1000);
+							}
 						}
 					}
 					catch(all) {
@@ -228,7 +227,10 @@ akademy.webviews = akademy.webviews ||
 			}
 
 			function updateIFrame( iframe, view, updateTime ) {
-				setTimeout( updateIframeSrc.bind( iframe, view ), updateTime || 50 );
+				if( view.timeout ) {
+					clearTimeout( view.timeout );
+				}
+				view.timeout = setTimeout( updateIframeSrc.bind( iframe, view ), updateTime || 50 );
 			}
 
 			function iFrameLarge( iframe ) {

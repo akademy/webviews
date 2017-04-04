@@ -6,7 +6,7 @@ akademy.webviews = akademy.webviews ||
 			views : [
 				// This is a random collection of websites (partly random because I have no idea what domain it will be run on)
 				{url:"http://wouldlike.gift", title : "loaded but restricted"},
-				{url:"http://blog.akademy.co.uk/2017/03/webviews-seeing-all-your-website/" /* No Title */},
+				{url:"http://blog.akademy.co.uk/2017/04/webviews-seeing-all-your-website/" /* No Title */},
 				{url:"https://bitbucket.org/akademy/webviews", title : "3 Embed Not Allowed"},
 				{url:"httpf://error.example.com", title : "4 Error Bad schema"},
 				{url:"http://!$&'()*+,;=.com", title : "Error Bad URL"},

@@ -7,12 +7,12 @@ akademy.webviews = akademy.webviews ||
 				// This is a random collection of websites (partly random because I have no idea what domain it will be run on)
 				{url:"http://wouldlike.gift", title : "loaded but restricted"},
 				{url:"http://blog.akademy.co.uk/2017/04/webviews-seeing-all-your-website/" /* No Title */},
-				{url:"https://bitbucket.org/akademy/webviews", title : "3 Embed Not Allowed"},
+				{url:"https://bitbucket.org/akademy/webviews", title : "3 Embed Not Allowed", openFull : true},
 				{url:"httpf://error.example.com", title : "4 Error Bad schema"},
 				{url:"http://!$&'()*+,;=.com", title : "Error Bad URL"},
 				{url:"http://qweetergfsadgdvvbboisfgergerhjokjnmtn.com", title : "Unknown website"},
 				{url:"http:/local", title : "Text found", textCheck: "Not Found"},
-				{url:"http://127.0.0.1", title : "OK"}
+				{url:"http://127.0.0.1", title : "OK" }
 			],
 			width: 206,
 			height: 136,
@@ -82,18 +82,20 @@ akademy.webviews = akademy.webviews ||
 
 			for( var i=0; i<_views.length; i++  ) {
 
-				_views[i].status = "none";
+				var viewData = _views[i];
 
-				if( !_views[i].title ) {
-					_views[i].title = "No title. (WebView" + (i+1) + ")";
+				viewData.status = "none";
+
+				if( !viewData.title ) {
+					viewData.title = "No title. (Webview" + (i+1) + ")";
 				}
 
 				var div         = document.createElement("div"),
 					iframe      = document.createElement("iframe"),
 					a           = document.createElement("a"),
-					aText       = document.createTextNode( _views[i].title ),
+					aText       = document.createTextNode( viewData.title ),
 					pTitle      = document.createElement( "p" ),
-					pTitleText  = document.createTextNode( _views[i].title ),
+					pTitleText  = document.createTextNode( viewData.title ),
 					br          = document.createElement("br"),
 					buttonClose      = document.createElement("button"),
 					buttonCloseText  = document.createTextNode( "✕" ), // ✕
@@ -108,20 +110,22 @@ akademy.webviews = akademy.webviews ||
 				iframe.setAttribute("seamless", "seamless");
 				iframe.setAttribute( "id","iframe-" + i );
 
-				iframe.onload = iFrameOnLoad.bind( iframe, _views[i] );
-				iframe.onerror = iFrameOnError.bind( iframe, _views[i] );
+				iframe.onload = iFrameOnLoad.bind( iframe, viewData );
+				iframe.onerror = iFrameOnError.bind( iframe, viewData );
 
 				//iframe.addEventListener("message", function( event ) { console.log("A frame message:", event ); }, false);
 
-				a.setAttribute("src",_views[i].url);
-				a.setAttribute("alt",_views[i].title + " : " + _views[i].url);
+				a.setAttribute("src",viewData.url);
+				a.setAttribute("alt",viewData.title + " : " + viewData.url);
+				
+				if( _)
 				a.onclick = aOnClick.bind(a,iframe);
 
 				buttonClose.setAttribute( "id","close" );
 				buttonClose.onclick = buttonCloseOnClick.bind( buttonClose, iframe );
 
 				buttonRefresh.setAttribute( "id","refresh" );
-				buttonRefresh.onclick = buttonRefreshOnClick.bind( buttonRefresh, iframe, _views[i] );
+				buttonRefresh.onclick = buttonRefreshOnClick.bind( buttonRefresh, iframe, viewData );
 
 				a.appendChild(br);
 				a.appendChild(aText);
@@ -141,7 +145,7 @@ akademy.webviews = akademy.webviews ||
 
 				_element.appendChild(div);
 
-				updateIFrame( iframe, _views[i], 50 * (i+1) );
+				updateIFrame( iframe, viewData, 50 * (i+1) );
 				setTimeout( updateATitle.bind(this, a, aText ), 2500 );
 			}
 
@@ -150,12 +154,12 @@ akademy.webviews = akademy.webviews ||
 				a.classList.add("hide");
 			}
 
-			function updateIframeSrc(view) {
-				view.status = "loading"; // Set "real" loading, not just about:blank page loaded!
+			function updateIframeSrc(viewData) {
+				viewData.status = "loading"; // Set "real" loading, not just about:blank page loaded!
 				this.parentNode.classList.add("loading");
 
 				try {
-					this.setAttribute("src", view.url);
+					this.setAttribute("src", viewData.url);
 				}
 				catch(all) {
 					// iFrame restricter... this does not catch anything, as nothing is thrown... :(
@@ -163,12 +167,12 @@ akademy.webviews = akademy.webviews ||
 				}
 			}
 
-			function iFrameOnLoad( view ) {
-				if( view.status === "loading") {
+			function iFrameOnLoad( viewData ) {
+				if( viewData.status === "loading") {
 					var divParent = this.parentNode;
 
 					divParent.classList.remove("loading");
-					view.status = "loaded";
+					viewData.status = "loaded";
 
 					// try to detect page not loaded the right webpage...
 					try {
@@ -182,9 +186,9 @@ akademy.webviews = akademy.webviews ||
 							divParent.classList.add("loaded-errored");
 						}
 						else {
-							if (view.textCheck &&
-								view.textCheck !== '' &&
-								content.body.innerText.indexOf(view.textCheck) === -1) {
+							if (viewData.textCheck &&
+								viewData.textCheck !== '' &&
+								content.body.innerText.indexOf(viewData.textCheck) === -1) {
 								divParent.classList.add("loaded-errored");
 							}
 							else {
@@ -192,13 +196,13 @@ akademy.webviews = akademy.webviews ||
 							}
 						}
 
-						if( view.autoReload > 0 || _autoReload > 0 ) {
+						if( viewData.autoReload > 0 || _autoReload > 0 ) {
 							var reload = _autoReload;
-							if (view.autoReload > 0) {
-								reload = view.autoReload;
+							if (viewData.autoReload > 0) {
+								reload = viewData.autoReload;
 							}
 							if (reload > 0) {
-								updateIFrame(this, view, reload * 1000);
+								updateIFrame(this, viewData, reload * 1000);
 							}
 						}
 					}
@@ -211,8 +215,8 @@ akademy.webviews = akademy.webviews ||
 			}
 
 			/* Detect loading errors (but not server errors on particular page!), such as an invalid URL */
-			function iFrameOnError( view ) {
-				view.status = "errored";
+			function iFrameOnError( viewData ) {
+				viewData.status = "errored";
 				this.parentNode.classList.add("error");
 			}
 
@@ -222,15 +226,15 @@ akademy.webviews = akademy.webviews ||
 			function buttonCloseOnClick ( iframe ) {
 				iFrameSmall( iframe );
 			}
-			function buttonRefreshOnClick ( iframe, view ) {
-				updateIFrame( iframe, view );
+			function buttonRefreshOnClick ( iframe, viewData ) {
+				updateIFrame( iframe, viewData );
 			}
 
-			function updateIFrame( iframe, view, updateTime ) {
-				if( view.timeout ) {
-					clearTimeout( view.timeout );
+			function updateIFrame( iframe, viewData, updateTime ) {
+				if( viewData.timeout ) {
+					clearTimeout( viewData.timeout );
 				}
-				view.timeout = setTimeout( updateIframeSrc.bind( iframe, view ), updateTime || 50 );
+				viewData.timeout = setTimeout( updateIframeSrc.bind( iframe, viewData ), updateTime || 50 );
 			}
 
 			function iFrameLarge( iframe ) {

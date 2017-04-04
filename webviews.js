@@ -5,14 +5,14 @@ akademy.webviews = akademy.webviews ||
 		var configDefault = {
 			views : [
 				// This is a random collection of websites (partly random because I have no idea what domain it will be run on)
-				{url:"http://wouldlike.gift", title : "1 loaded but restricted"},
+				{url:"http://wouldlike.gift", title : "loaded but restricted"},
 				{url:"http://blog.akademy.co.uk/2017/03/webviews-seeing-all-your-website/" /* No Title */},
-				{url:"httpf://error.example.com", title : "3 Error Bad schema"},
-				{url:"http://!$&'()*+,;=.com", title : "4 Error Bad URL"},
-				{url:"http://qweetergfsadgdvvbboisfgergerhjokjnmtn.com", title : "5 Unknown website"},
-				{url:"http:/local", title : "6 Text found", textCheck: "Not Found"},
-				{url:"http://127.0.0.1", title : "7 OK"},
-				{url:"http://www.bbc.co.uk", title : "8 Not Allowed"}
+				{url:"https://bitbucket.org/akademy/webviews", title : "3 Embed Not Allowed"},
+				{url:"httpf://error.example.com", title : "4 Error Bad schema"},
+				{url:"http://!$&'()*+,;=.com", title : "Error Bad URL"},
+				{url:"http://qweetergfsadgdvvbboisfgergerhjokjnmtn.com", title : "Unknown website"},
+				{url:"http:/local", title : "Text found", textCheck: "Not Found"},
+				{url:"http://127.0.0.1", title : "OK"}
 			],
 			width: 206,
 			height: 136,
@@ -85,7 +85,7 @@ akademy.webviews = akademy.webviews ||
 				_views[i].status = "none";
 
 				if( !_views[i].title ) {
-					_views[i].title = "WebView" + (i+1)
+					_views[i].title = "No title. (WebView" + (i+1) + ")";
 				}
 
 				var div         = document.createElement("div"),
@@ -159,7 +159,7 @@ akademy.webviews = akademy.webviews ||
 				}
 				catch(all) {
 					// iFrame restricter... this does not catch anything, as nothing is thrown... :(
-					divParent.classList.add("loaded-restricted");
+					this.parentNode.classList.add("loaded-restricted");
 				}
 			}
 

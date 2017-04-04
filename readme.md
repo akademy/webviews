@@ -59,6 +59,7 @@ The full set of options:
  - `config.views.title`: the name to show underneath the WebView. Optional.
  - `config.views.autoReload`: Number of seconds to wait before reloading. Optional. Default is no refresh. Overrules the `config.refresh` value.
  - `config.views.textCheck`: A string to look for inside the iframe (see restrictions section). Optional. Default is no check.
+ - `config.views.openFull`: Always open in a new window, not a view.
 - `config.width`: Width of a minimised WebView. Default is 206.
 - `config.height`: Height of a minimised WebView. Default is 136.
 - `config.scale`: Scale amount of the webpage within a minimised WebView. Default is 0.2.

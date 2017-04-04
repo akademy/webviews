@@ -115,11 +115,13 @@ akademy.webviews = akademy.webviews ||
 
 				//iframe.addEventListener("message", function( event ) { console.log("A frame message:", event ); }, false);
 
-				a.setAttribute("src",viewData.url);
+				a.setAttribute("href",viewData.url); // This lets you "right click and open in other tab"
+				a.setAttribute("target","_blank");
 				a.setAttribute("alt",viewData.title + " : " + viewData.url);
 				
-				if( _)
-				a.onclick = aOnClick.bind(a,iframe);
+				if( !viewData.openFull ) {
+					a.onclick = aOnClick.bind(a, iframe);
+				}
 
 				buttonClose.setAttribute( "id","close" );
 				buttonClose.onclick = buttonCloseOnClick.bind( buttonClose, iframe );
@@ -222,6 +224,7 @@ akademy.webviews = akademy.webviews ||
 
 			function aOnClick ( iframe ) {
 				iFrameLarge( iframe );
+				return false;
 			}
 			function buttonCloseOnClick ( iframe ) {
 				iFrameSmall( iframe );

@@ -56,6 +56,8 @@ akademy.webviews = akademy.webviews ||
 
 			var style = document.createElement("style");
 			style.appendChild(document.createTextNode(
+				" .iframe-wrap, iframe-wrap * {box-sizing:content-box !important;}" +
+				" .iframe-wrap *.hide {display:block !important;}" +
 				" .iframe-wrap {width:" + _size.w + "px;height:" + (_size.h+25) +  "px;padding:0;margin:0;display:inline-block;background-color:white;margin:5px;border:3px solid black}" +
 				" .iframe-wrap.full {position:absolute;top:20px;left:20px;border:0}" +
 				" .iframe-wrap.loading { border-color: blue; }" +
@@ -63,16 +65,18 @@ akademy.webviews = akademy.webviews ||
 				" .iframe-wrap.loaded-restricted { border-color: #e5d610; }" +
 				" .iframe-wrap.loaded-errored { border-color: red; }" +
 				" .iframe-wrap.error { border-color: #f55; }" +
-				" .iframe-wrap a {width:" + _size.w + "px;height:" + _size.h + "px;padding:0;margin:0;display:block;position:absolute;background-color:transparent;text-align:center;font-size:20px;font-weight:bold;cursor:hand}" +
+				" .iframe-wrap a {width:" + _size.w + "px;height:" + _size.h + "px;padding:0;margin:0;display:block;position:absolute;background-color:transparent;text-align:center;font-size:20px;font-weight:bold;cursor:hand;margin-top:0}" +
 				" .iframe-wrap a:hover {background-color: rgba(0,0,0,0.5);color:white;}" +
 				" .iframe-wrap a.hide {color: transparent }" +
 				" .iframe-wrap a:hover.hide {color: white }" +
 				" .iframe-wrap p {position:relative; color:black; top:" + _size.h + "px; margin:4px 4px;}" +
-				" .iframe-wrap button {visibility:hidden;z-index:200;width:59px}" +
-				" .iframe-wrap.full button {visibility:visible;position:relative;left:" + (_fullSize.w + 20) + "px;}" +
+				" .iframe-wrap button {visibility:hidden;z-index:200;width:59px;background-color:rgb(239, 240, 241);border:1px;}" +
+				" .iframe-wrap .buttons {margin-top:-18px;}" +
+				" .iframe-wrap.full .buttons {margin-top:0;left:" + (_fullSize.w-118) + "px;position:relative;}" +
+				" .iframe-wrap.full button {visibility:visible;}" +
 				" .iframe-wrap.full a:hover, .iframe-wrap.full a:hover.hide {background-color: rgba(0,0,0,0);color:transparent;}" +
-				" .iframe-wrap iframe {width:" + _scaledSize.w + "px;height:" + _scaledSize.h + "px;transform: scale(" + _scale + "); position:absolute; transform-origin:0 0; overflow:hidden; background-color:white; border-color:black}" +
-				" .iframe-wrap.full iframe {width:" + _fullSize.w + ";height:" + _fullSize.h + "px;transform: scale(1);z-index:100;overflow: auto;}" +
+				" .iframe-wrap iframe {width:" + _scaledSize.w + "px;height:" + _scaledSize.h + "px;transform: scale(" + _scale + "); position:absolute; transform-origin:0 0; overflow:hidden; background-color:white; border-color:black;margin-top:0px}" +
+				" .iframe-wrap.full iframe {width:" + _fullSize.w + ";height:" + _fullSize.h + "px;transform: scale(1);z-index:100;overflow:auto;margin-top:0px}" +
 				" .iframe-wrap.loading iframe { /*display:none*/ }" +
 				" .iframe-wrap.loaded iframe { /*display:block*/ }"
 
@@ -91,6 +95,7 @@ akademy.webviews = akademy.webviews ||
 				}
 
 				var div         = document.createElement("div"),
+					divButtons  = document.createElement("div"),
 					iframe      = document.createElement("iframe"),
 					a           = document.createElement("a"),
 					aText       = document.createTextNode( viewData.title ),
@@ -104,6 +109,8 @@ akademy.webviews = akademy.webviews ||
 
 				div.setAttribute( "class","iframe-wrap" );
 				div.setAttribute( "id","iframe-wrap-" + i );
+
+				divButtons.setAttribute( "class","buttons" );
 
 				iframe.setAttribute("src", "");
 				iframe.setAttribute("scrolling", "no");
@@ -129,21 +136,23 @@ akademy.webviews = akademy.webviews ||
 				buttonRefresh.setAttribute( "id","refresh" );
 				buttonRefresh.onclick = buttonRefreshOnClick.bind( buttonRefresh, iframe, viewData );
 
-				a.appendChild(br);
-				a.appendChild(aText);
-				div.appendChild(iframe);
-				div.appendChild(a);
-
-				pTitle.appendChild(pTitleText);
-				div.appendChild(pTitle);
-
 				buttonClose.appendChild(buttonCloseText);
 				buttonRefresh.appendChild(buttonRefreshText);
 
+				divButtons.appendChild(buttonClose);
+				//div.appendChild(document.createElement("br"));
+				divButtons.appendChild(buttonRefresh);
 
-				div.appendChild(buttonClose);
-				div.appendChild(document.createElement("br"));
-				div.appendChild(buttonRefresh);
+				a.appendChild(br);
+				a.appendChild(aText);
+
+				pTitle.appendChild(pTitleText);
+
+				div.appendChild(divButtons);
+				//div.appendChild(document.createElement("br"));
+				div.appendChild(iframe);
+				div.appendChild(a);
+				div.appendChild(pTitle);
 
 				_element.appendChild(div);
 

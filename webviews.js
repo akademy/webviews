@@ -17,12 +17,15 @@ akademy.webviews = akademy.webviews ||
 			width: 206,
 			height: 136,
 			scale: 0.2,
-			element: document.body,
+			element: _doc.body,
 			autoReload: 0
 		};
 
 		config = config || {};
-		var _size = {
+		
+		var _doc = document, // minify
+
+			_size = {
 				w: config.width || configDefault.width,
 				h: config.height || configDefault.height
 			},
@@ -33,15 +36,16 @@ akademy.webviews = akademy.webviews ||
 			},
 			_element = config.element || configDefault.element,
 			_views = config.views || configDefault.views,
-			_autoReload = config.autoReload || configDefault.autoReload;
+			_autoReload = config.autoReload || configDefault.autoReload,
 
-		var	_fullSize = {
+
+			_fullSize = {
 				w: _size.w * 4,
 				h: _size.h * 4
 			},
 			_windowSize = {
-				w: window.innerWidth || document.body.clientWidth,
-				h: window.innerHeight || document.body.clientHeight
+				w: window.innerWidth || _doc.body.clientWidth,
+				h: window.innerHeight || _doc.body.clientHeight
 			};
 
 		if( _fullSize.w > _windowSize.w ) {
@@ -54,31 +58,31 @@ akademy.webviews = akademy.webviews ||
 		window.addEventListener("message", function( event ) { console.log("A window message:", event ); }, false);
 		window.addEventListener("load", function() {
 
-			var style = document.createElement("style");
-			style.appendChild(document.createTextNode(
-				" .iframe-wrap, iframe-wrap * {box-sizing:content-box !important;}" +
-				" .iframe-wrap *.hide {display:block !important;}" +
-				" .iframe-wrap {width:" + _size.w + "px;height:" + (_size.h+25) +  "px;padding:0;margin:0;display:inline-block;background-color:white;margin:5px;border:3px solid black}" +
-				" .iframe-wrap.full {position:absolute;top:20px;left:20px;border:0}" +
-				" .iframe-wrap.loading { border-color: blue; }" +
-				" .iframe-wrap.loaded-ok { border-color: limegreen; }" +
-				" .iframe-wrap.loaded-restricted { border-color: #e5d610; }" +
-				" .iframe-wrap.loaded-errored { border-color: red; }" +
-				" .iframe-wrap.error { border-color: #f55; }" +
-				" .iframe-wrap a {width:" + _size.w + "px;height:" + _size.h + "px;padding:0;margin:0;display:block;position:absolute;background-color:transparent;text-align:center;font-size:20px;font-weight:bold;cursor:hand;margin-top:0}" +
-				" .iframe-wrap a:hover {background-color: rgba(0,0,0,0.5);color:white;}" +
-				" .iframe-wrap a.hide {color: transparent }" +
-				" .iframe-wrap a:hover.hide {color: white }" +
-				" .iframe-wrap p {position:relative; color:black; top:" + _size.h + "px; margin:4px 4px;}" +
-				" .iframe-wrap button {visibility:hidden;z-index:200;width:59px;background-color:rgb(239, 240, 241);border:1px;}" +
-				" .iframe-wrap .buttons {margin-top:-18px;}" +
-				" .iframe-wrap.full .buttons {margin-top:0;left:" + (_fullSize.w-118) + "px;position:relative;}" +
-				" .iframe-wrap.full button {visibility:visible;}" +
-				" .iframe-wrap.full a:hover, .iframe-wrap.full a:hover.hide {background-color: rgba(0,0,0,0);color:transparent;}" +
-				" .iframe-wrap iframe {width:" + _scaledSize.w + "px;height:" + _scaledSize.h + "px;transform: scale(" + _scale + "); position:absolute; transform-origin:0 0; overflow:hidden; background-color:white; border-color:black;margin-top:0px}" +
-				" .iframe-wrap.full iframe {width:" + _fullSize.w + ";height:" + _fullSize.h + "px;transform: scale(1);z-index:100;overflow:auto;margin-top:0px}" +
-				" .iframe-wrap.loading iframe { /*display:none*/ }" +
-				" .iframe-wrap.loaded iframe { /*display:block*/ }"
+			var style = createElement("style"), wrapperName = " .iframe-wrap";
+			style.appendChild(createTextNode(
+				wrapperName + ", iframe-wrap * {box-sizing:content-box !important;}" +
+				wrapperName + " *.hide {display:block !important;}" +
+				wrapperName + " {width:" + _size.w + "px;height:" + (_size.h+25) +  "px;padding:0;margin:0;display:inline-block;background-color:white;margin:5px;border:3px solid black}" +
+				wrapperName + ".full {position:absolute;top:20px;left:20px;border:0}" +
+				wrapperName + ".loading { border-color: blue; }" +
+				wrapperName + ".loaded-ok { border-color: limegreen; }" +
+				wrapperName + ".loaded-restricted { border-color: #e5d610; }" +
+				wrapperName + ".loaded-errored { border-color: red; }" +
+				wrapperName + ".error { border-color: #f55; }" +
+				wrapperName + " a {width:" + _size.w + "px;height:" + _size.h + "px;padding:0;margin:0;display:block;position:absolute;background-color:transparent;text-align:center;font-size:20px;font-weight:bold;cursor:hand;margin-top:0}" +
+				wrapperName + " a:hover {background-color: rgba(0,0,0,0.5);color:white;}" +
+				wrapperName + " a.hide {color: transparent }" +
+				wrapperName + " a:hover.hide {color: white }" +
+				wrapperName + " p {position:relative; color:black; top:" + _size.h + "px; margin:4px 4px;}" +
+				wrapperName + " button {visibility:hidden;z-index:200;width:59px;background-color:rgb(239, 240, 241);border:1px;}" +
+				wrapperName + " .buttons {margin-top:-18px;}" +
+				wrapperName + ".full .buttons {margin-top:0;left:" + (_fullSize.w-118) + "px;position:relative;}" +
+				wrapperName + ".full button {visibility:visible;}" +
+				wrapperName + ".full a:hover, .iframe-wrap.full a:hover.hide {background-color: rgba(0,0,0,0);color:transparent;}" +
+				wrapperName + " iframe {width:" + _scaledSize.w + "px;height:" + _scaledSize.h + "px;transform: scale(" + _scale + "); position:absolute; transform-origin:0 0; overflow:hidden; background-color:white; border-color:black;margin-top:0px}" +
+				wrapperName + ".full iframe {width:" + _fullSize.w + ";height:" + _fullSize.h + "px;transform: scale(1);z-index:100;overflow:auto;margin-top:0px}" +
+				wrapperName + ".loading iframe { /*display:none*/ }" +
+				wrapperName + ".loaded iframe { /*display:block*/ }"
 
 				//" .iframe-wrap.loaded a {color: transparent }"
 			));
@@ -94,74 +98,79 @@ akademy.webviews = akademy.webviews ||
 					viewData.title = "No title. (Webview" + (i+1) + ")";
 				}
 
-				var div         = document.createElement("div"),
-					divButtons  = document.createElement("div"),
-					iframe      = document.createElement("iframe"),
-					a           = document.createElement("a"),
-					aText       = document.createTextNode( viewData.title ),
-					pTitle      = document.createElement( "p" ),
-					pTitleText  = document.createTextNode( viewData.title ),
-					br          = document.createElement("br"),
-					buttonClose      = document.createElement("button"),
-					buttonCloseText  = document.createTextNode( "✕" ), // ✕
-					buttonRefresh      = document.createElement("button"),
-					buttonRefreshText  = document.createTextNode( "↻" ); // ↻
+				var div         = createElement("div"),
+					divButtons  = createElement("div"),
+					iframe      = createElement("iframe"),
+					a           = createElement("a"),
+					aText       = createTextNode( viewData.title ),
+					pTitle      = createElement( "p" ),
+					pTitleText  = createTextNode( viewData.title ),
+					br          = createElement("br"),
+					buttonClose      = createElement("button"),
+					buttonCloseText  = createTextNode( "✕" ), // utf8 close symbol
+					buttonRefresh      = createElement("button"),
+					buttonRefreshText  = createTextNode( "↻" ); // utf8 reload symbol
 
-				div.setAttribute( "class","iframe-wrap" );
-				div.setAttribute( "id","iframe-wrap-" + i );
+				setAttribute( div, "class","iframe-wrap" );
+				setAttribute( div, "id","iframe-wrap-" + i );
 
-				divButtons.setAttribute( "class","buttons" );
+				setAttribute(divButtons, "class","buttons" );
 
-				iframe.setAttribute("src", "");
-				iframe.setAttribute("scrolling", "no");
-				iframe.setAttribute("seamless", "seamless");
-				iframe.setAttribute( "id","iframe-" + i );
+				setAttribute(iframe, "src", "");
+				setAttribute(iframe, "scrolling", "no");
+				setAttribute(iframe, "seamless", "seamless");
+				setAttribute(iframe,  "id","iframe-" + i );
 
 				iframe.onload = iFrameOnLoad.bind( iframe, viewData );
 				iframe.onerror = iFrameOnError.bind( iframe, viewData );
 
 				//iframe.addEventListener("message", function( event ) { console.log("A frame message:", event ); }, false);
 
-				a.setAttribute("href",viewData.url); // This lets you "right click and open in other tab"
-				a.setAttribute("target","_blank");
-				a.setAttribute("alt",viewData.title + " : " + viewData.url);
-				
+				setAttribute(a, "href",viewData.url); // This lets you "right click and open in other tab"
+				setAttribute(a, "target","_blank");
+				setAttribute(a, "alt",viewData.title + " : " + viewData.url);
+
 				if( !viewData.openFull ) {
 					a.onclick = aOnClick.bind(a, iframe);
 				}
 
-				buttonClose.setAttribute( "id","close" );
+				setAttribute(buttonClose, "id","close" );
 				buttonClose.onclick = buttonCloseOnClick.bind( buttonClose, iframe );
 
-				buttonRefresh.setAttribute( "id","refresh" );
+				setAttribute( buttonRefresh, "id","refresh" );
 				buttonRefresh.onclick = buttonRefreshOnClick.bind( buttonRefresh, iframe, viewData );
 
-				buttonClose.appendChild(buttonCloseText);
-				buttonRefresh.appendChild(buttonRefreshText);
+				appendChild(buttonClose,buttonCloseText);
+				appendChild(buttonRefresh,buttonRefreshText);
 
-				divButtons.appendChild(buttonClose);
-				//div.appendChild(document.createElement("br"));
-				divButtons.appendChild(buttonRefresh);
+				appendChild(divButtons,buttonClose);
+				//appendChild(div, createElement("br"));
+				appendChild(divButtons,buttonRefresh);
 
-				a.appendChild(br);
-				a.appendChild(aText);
+				appendChild(a,br);
+				appendChild(a,aText);
 
-				pTitle.appendChild(pTitleText);
+				appendChild(pTitle,pTitleText);
 
-				div.appendChild(divButtons);
-				//div.appendChild(document.createElement("br"));
-				div.appendChild(iframe);
-				div.appendChild(a);
-				div.appendChild(pTitle);
+				appendChild(div,divButtons);
+				//div.appendChild(div,createElement("br"));
+				appendChild(div,iframe);
+				appendChild(div,a);
+				appendChild(div,pTitle);
 
-				_element.appendChild(div);
+				appendChild(_element,div);
 
 				updateIFrame( iframe, viewData, 50 * (i+1) );
 				setTimeout( updateATitle.bind(this, a, aText ), 2500 );
 			}
 
+			function setAttribute( element, attribute, value ) {element.setAttribute(attribute, value)}
+			function createElement( name ) {return _doc.createElement(name)}
+			function createTextNode( text ) {return _doc.createTextNode(text)}
+			function appendChild( parent, child ) {parent.appendChild(child)}
+
 			function updateATitle(a, aText) {
-				a.replaceChild( document.createTextNode("⌕ zoom"), aText );
+				a.replaceChild( createTextNode("⌕ zoom"), aText ); // utf8 magnify glass symbol
 				a.classList.add("hide");
 			}
 
@@ -170,7 +179,7 @@ akademy.webviews = akademy.webviews ||
 				this.parentNode.classList.add("loading");
 
 				try {
-					this.setAttribute("src", viewData.url);
+					setAttribute(this, "src", viewData.url);
 				}
 				catch(all) {
 					// iFrame restricter... this does not catch anything, as nothing is thrown... :(
@@ -218,7 +227,7 @@ akademy.webviews = akademy.webviews ||
 						}
 					}
 					catch(all) {
-					    //Not allowed access to iframe as likely on another domain.
+						//Not allowed access to iframe as likely on another domain.
 						divParent.classList.add("loaded-restricted");
 					}
 				}
@@ -251,11 +260,11 @@ akademy.webviews = akademy.webviews ||
 
 			function iFrameLarge( iframe ) {
 				iframe.parentNode.classList.add("full");
-				iframe.setAttribute("scrolling", "yes");
+				setAttribute(iframe,"scrolling", "yes");
 			}
 			function iFrameSmall( iframe ) {
 				iframe.parentNode.classList.remove("full");
-				iframe.setAttribute("scrolling", "no");
+				setAttribute(iframe,"scrolling", "no");
 			}
 
 

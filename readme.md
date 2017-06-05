@@ -55,11 +55,12 @@ The full set of options:
 - `config.element` : THe HTML element you would like the webviews to
  be put. Default: <body>
 - `config.views`: an array of objects holding the webpages to load. (Technically optional, as it'll load it's own list if not specified)
- - `config.views.url`: the url of the webpage. Mandatory.
- - `config.views.title`: the name to show underneath the WebView. Optional.
- - `config.views.autoReload`: Number of seconds to wait before reloading. Optional. Default is no refresh. Overrules the `config.refresh` value.
- - `config.views.textCheck`: A string to look for inside the iframe (see restrictions section). Optional. Default is no check.
- - `config.views.openFull`: Always open in a new window, not a view.
+  - `config.views.url`: the url of the webpage. Mandatory.
+  - `config.views.title`: the name to show underneath the WebView. Optional.
+  - `config.views.autoReload`: Number of seconds to wait before reloading. Optional. Default is no refresh. Overrules the `config.refresh` value.
+  - `config.views.textCheck`: A string to look for inside the iframe (see restrictions section). Optional. Default is no check.
+  - `config.views.openFull`: Always open in a new window, not a view.
+  - `config.views.sandbox` : An array. Turn on sandbox restrictions except those in the array. See sandbox definition. (e.g. sandbox: ["allow-forms"]) 
 - `config.width`: Width of a minimised WebView. Default is 206.
 - `config.height`: Height of a minimised WebView. Default is 136.
 - `config.scale`: Scale amount of the webpage within a minimised WebView. Default is 0.2.

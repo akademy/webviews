@@ -7,12 +7,12 @@ akademy.webviews = akademy.webviews ||
 				// This is a random collection of websites (partly random because I have no idea what domain it will be run on)
 				{url:"http://wouldlike.gift", title : "loaded but restricted"},
 				{url:"http://blog.akademy.co.uk/2017/04/webviews-seeing-all-your-website/" /* No Title */},
-				{url:"https://bitbucket.org/akademy/webviews", title : "3 Embed Not Allowed", openFull : true},
-				{url:"httpf://error.example.com", title : "4 Error Bad schema"},
+				{url:"https://bitbucket.org/akademy/webviews", title : "Embed Not Allowed", openFull : true},
+				{url:"httpf://error.example.com", title : "Error Bad schema"},
 				{url:"http://!$&'()*+,;=.com", title : "Error Bad URL"},
 				{url:"http://qweetergfsadgdvvbboisfgergerhjokjnmtn.com", title : "Unknown website"},
 				{url:"http:/local", title : "Text found", textCheck: "Not Found"},
-				{url:"http://127.0.0.1", title : "OK" }
+				{url:"http://127.0.0.1", title : "OK", sandbox: ["allow-forms"] }
 			],
 			width: 206,
 			height: 136,
@@ -115,9 +115,13 @@ akademy.webviews = akademy.webviews ||
 				setAttribute(divButtons, "class","buttons" );
 
 				setAttribute(iframe, "src", "");
-				setAttribute(iframe, "scrolling", "yes"); // Chrome bug: setting to no, doesn't show the scroolbars when zoomed
+				setAttribute(iframe, "scrolling", "yes"); // Chrome bug: setting to no doesn't show the scrollbars when zoomed
 				setAttribute(iframe, "seamless", "seamless");
 				setAttribute(iframe,  "id","iframe-" + i );
+
+				if( viewData.sandbox ) {
+					setAttribute(iframe,  "sandbox", viewData.sandbox.join(" ") );
+				}
 
 				iframe.onload = iFrameOnLoad.bind( iframe, viewData );
 				iframe.onerror = iFrameOnError.bind( iframe, viewData );

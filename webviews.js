@@ -115,7 +115,7 @@ akademy.webviews = akademy.webviews ||
 				setAttribute(divButtons, "class","buttons" );
 
 				setAttribute(iframe, "src", "");
-				setAttribute(iframe, "scrolling", "no");
+				setAttribute(iframe, "scrolling", "yes"); // Chrome bug: setting to no, doesn't show the scroolbars when zoomed
 				setAttribute(iframe, "seamless", "seamless");
 				setAttribute(iframe,  "id","iframe-" + i );
 
@@ -159,7 +159,7 @@ akademy.webviews = akademy.webviews ||
 				appendChild(_element,div);
 
 				updateIFrame( iframe, viewData, 50 * (i+1) );
-				setTimeout( updateATitle.bind(this, a, aText ), 2500 );
+				setTimeout( updateATitle.bind(this, a, aText ), 2000 );
 			}
 
 			function setAttribute( element, attribute, value ) {element.setAttribute(attribute, value)}
@@ -258,10 +258,12 @@ akademy.webviews = akademy.webviews ||
 
 			function iFrameLarge( iframe ) {
 				iframe.parentNode.classList.add("full");
-				setAttribute(iframe,"scrolling", "yes");
+				//iframe.style.overflow = "shown";
+				setAttribute(iframe,"scrolling", "auto");
 			}
 			function iFrameSmall( iframe ) {
 				iframe.parentNode.classList.remove("full");
+				//iframe.style.overflow = "hidden";
 				setAttribute(iframe,"scrolling", "no");
 			}
 

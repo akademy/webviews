@@ -1,8 +1,8 @@
 var akademy = akademy || {};
 akademy.webviews = akademy.webviews ||
 	function( config ) {
-
-		var configDefault = {
+		var _doc = document, // minify
+			configDefault = {
 			views : [
 				// This is a random collection of websites (partly random because I have no idea what domain it will be run on)
 				{url:"http://wouldlike.gift", title : "loaded but restricted"},
@@ -23,9 +23,7 @@ akademy.webviews = akademy.webviews ||
 
 		config = config || {};
 		
-		var _doc = document, // minify
-
-			_size = {
+		var _size = {
 				w: config.width || configDefault.width,
 				h: config.height || configDefault.height
 			},

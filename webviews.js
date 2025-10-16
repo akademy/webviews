@@ -11,7 +11,7 @@ akademy.webviews = akademy.webviews ||
 				{url:"httpf://error.example.com", title : "Error Bad schema"},
 				{url:"http://!$&'()*+,;=.com", title : "Error Bad URL"},
 				{url:"http://qweetergfsadgdvvbboisfgergerhjokjnmtn.com", title : "Unknown website"},
-				{url:"http:/local", title : "Text found", textCheck: "Not Found"},
+				{url:"http:/local", title : "Text found", textCheck: "Not Found", textCheckDelay: 2000 },
 				{url:"http://127.0.0.1", title : "OK", sandbox: ["allow-forms"] }
 			],
 			width: 206,
@@ -53,7 +53,7 @@ akademy.webviews = akademy.webviews ||
 			_fullSize.h = _windowSize.h - 50;
 		}
 
-		window.addEventListener("message", function( event ) { console.log("A window message:", event ); }, false);
+		//window.addEventListener("message", function( event ) { console.log("A window message:", event ); }, false);
 		window.addEventListener("load", function() {
 
 			var style = createElement("style"), wrapperName = " .iframe-wrap";
@@ -72,8 +72,9 @@ akademy.webviews = akademy.webviews ||
 				wrapperName + " a.hide {color: transparent }" +
 				wrapperName + " a:hover.hide {color: white }" +
 				wrapperName + " p {position:relative; color:black; top:" + _size.h + "px; margin:4px 4px;}" +
-				wrapperName + " button {visibility:hidden;z-index:200;width:59px;background-color:rgb(239, 240, 241);border:1px;}" +
-				wrapperName + " .buttons {margin-top:-18px;}" +
+				wrapperName + " button {position:relative;visibility:hidden;z-index:200;width:59px;background-color:rgb(239, 240, 241);border:1px;line-height:1}" +
+				wrapperName + " button:hover {background-color:rgb(139, 140, 141);color:black}" +
+				wrapperName + " .buttons {margin-top:-18px}" +
 				wrapperName + ".full .buttons {margin-top:0;left:" + (_fullSize.w-118) + "px;position:relative;}" +
 				wrapperName + ".full button {visibility:visible;}" +
 				wrapperName + ".full a:hover, .iframe-wrap.full a:hover.hide {background-color: rgba(0,0,0,0);color:transparent;}" +
@@ -208,10 +209,28 @@ akademy.webviews = akademy.webviews ||
 							divParent.classList.add("loaded-errored");
 						}
 						else {
-							if (viewData.textCheck &&
-								viewData.textCheck !== '' &&
-								content.body.innerText.indexOf(viewData.textCheck) === -1) {
-								divParent.classList.add("loaded-errored");
+							if (viewData.textCheck && viewData.textCheck !== '' ) {
+
+								if( viewData.textCheckDelay ) {
+									setTimeout(()=>{
+										console.log(viewData);
+										var content = this.contentDocument;
+										if( content.body.innerText.indexOf(viewData.textCheck) === -1) {
+											divParent.classList.add("loaded-errored");
+										}
+										else {
+											divParent.classList.add("loaded-ok");
+										}
+									}, viewData.textCheckDelay )
+								}
+								else {
+									if( content.body.innerText.indexOf(viewData.textCheck) === -1) {
+										divParent.classList.add("loaded-errored");
+									}
+									else {
+										divParent.classList.add("loaded-ok");
+									}
+								}
 							}
 							else {
 								divParent.classList.add("loaded-ok");

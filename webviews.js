@@ -213,7 +213,6 @@ akademy.webviews = akademy.webviews ||
 
 								if( viewData.textCheckDelay ) {
 									setTimeout(()=>{
-										console.log(viewData);
 										var content = this.contentDocument;
 										if( content.body.innerText.indexOf(viewData.textCheck) === -1) {
 											divParent.classList.add("loaded-errored");

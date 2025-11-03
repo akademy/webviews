@@ -6,10 +6,10 @@
   </head>
   <body>
   	<h1>WebViews</h1>
-  	<p>The default configuration for WebViews with various test URLs.
+  	<p>The test urls, showing different error captures. Most are restricted,
 		It'll add the views to the end of &lt;body&gt;.
 		Here's the first <a href="webviews.html">example</a>.
-		If you like it, feel free to <a href="http://www.akademy.co.uk/me/donate.php">buy me a beer</a>
+		If you like it, feel free to <a href="https://akademy.uk/me/donate.php">buy me a beer</a>
 	</p>
 	<ul>
 		<li>Green means load and check OK.</li>
@@ -21,7 +21,22 @@
   <foot>
 	  <script src="webviews.js" charset="utf-8"></script>
 	  <script>
-		  akademy.webviews();
+		  var config = {
+			  element : document.getElementById("views"),
+			  views : [
+				  // This is a random collection of websites (partly random because I have no idea what domain it will be run on)
+				  {url:"https://akademy.uk", title : "loaded but samesite restricted"},
+				  //{url:"http://blog.akademy.co.uk/2017/04/webviews-seeing-all-your-website/" /* No Title */},
+				  {url:"https://bitbucket.org/akademy/webviews", title : "Embed Not Allowed", openFull : true},
+				  {url:"httpf://error.example.com", title : "Error Bad schema"},
+				  {url:"http://!$&'()*+,;=.com", title : "Error Bad URL"},
+				  {url:"http://qweetergfsadgdvvbboisfgergerhjokjnmtn.com", title : "Unknown website"},
+				  {url:"http:/local", title : "Look for Text", textCheck: "Not Found", textCheckDelay: 2000 },
+				  {url:"http://127.0.0.1", title : "OK (if local running)", sandbox: ["allow-forms"] }
+			  ]
+		  };
+		  // akademy.webviews( );
+		  akademy.webviews( config );
 	  </script>
   </foot>
 </html>

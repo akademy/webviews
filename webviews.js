@@ -3,17 +3,7 @@ akademy.webviews = akademy.webviews ||
 	function( config ) {
 		var _document = document, // minify
 			configDefault = {
-				views : [
-					// This is a random collection of websites (partly random because I have no idea what domain it will be run on)
-					{url:"http://wouldlike.gift", title : "loaded but restricted"},
-					{url:"http://blog.akademy.co.uk/2017/04/webviews-seeing-all-your-website/" /* No Title */},
-					{url:"https://bitbucket.org/akademy/webviews", title : "Embed Not Allowed", openFull : true},
-					{url:"httpf://error.example.com", title : "Error Bad schema"},
-					{url:"http://!$&'()*+,;=.com", title : "Error Bad URL"},
-					{url:"http://qweetergfsadgdvvbboisfgergerhjokjnmtn.com", title : "Unknown website"},
-					{url:"http:/local", title : "Text found", textCheck: "Not Found", textCheckDelay: 2000 },
-					{url:"http://127.0.0.1", title : "OK", sandbox: ["allow-forms"] }
-				],
+				views : [{url:"https://akademy.uk", title : "Akademy"}],
 				width: 206,
 				height: 136,
 				scale: 0.2,

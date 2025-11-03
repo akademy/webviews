@@ -1,7 +1,7 @@
-var akademy = akademy || {};
+akademy = window.akademy || {};
 akademy.webviews = akademy.webviews ||
 	function( config ) {
-		var _document = document, // minify
+		const _document = document, // minify
 			configDefault = {
 				views : [{url:"https://akademy.uk", title : "Akademy"}],
 				width: 206,
@@ -13,7 +13,7 @@ akademy.webviews = akademy.webviews ||
 
 		config = config || {};
 
-		var _size = {
+		const _size = {
 				w: config.width || configDefault.width,
 				h: config.height || configDefault.height
 			},
@@ -45,7 +45,7 @@ akademy.webviews = akademy.webviews ||
 
 		//window.addEventListener("message", function( event ) { console.log("A window message:", event ); }, false);
 		function create() {
-			var style = createElement("style"), wrapperName = " .iframe-wrap";
+			const style = createElement("style"), wrapperName = " .iframe-wrap";
 			style.appendChild(createTextNode(
 				wrapperName + ", iframe-wrap * {box-sizing:content-box !important;}" +
 				wrapperName + " *.hide {display:block !important;}" +
@@ -76,9 +76,9 @@ akademy.webviews = akademy.webviews ||
 			));
 			_element.appendChild(style);
 
-			for( var i=0; i<_views.length; i++  ) {
+			for( let i=0; i<_views.length; i++  ) {
 
-				var viewData = _views[i];
+				const viewData = _views[i];
 
 				viewData.status = "none";
 
@@ -86,7 +86,7 @@ akademy.webviews = akademy.webviews ||
 					viewData.title = "No title. (Webview" + (i+1) + ")";
 				}
 
-				var div         = createElement("div"),
+				const div         = createElement("div"),
 					divButtons  = createElement("div"),
 					iframe      = createElement("iframe"),
 					a           = createElement("a"),
@@ -174,21 +174,21 @@ akademy.webviews = akademy.webviews ||
 					setAttribute(this, "src", viewData.url);
 				}
 				catch(all) {
-					// iFrame restricter... this does not catch anything, as nothing is thrown... :(
+					// iFrame restricted... this does not catch anything, as nothing is thrown... :(
 					this.parentNode.classList.add("loaded-restricted");
 				}
 			}
 
 			function iFrameOnLoad( viewData ) {
 				if( viewData.status === "loading") {
-					var divParent = this.parentNode;
+					const divParent = this.parentNode;
 
 					divParent.classList.remove("loading");
 					viewData.status = "loaded";
 
 					// try to detect page not loaded the right webpage...
 					try {
-						var content = (this.contentWindow || this.contentDocument);
+						let content = (this.contentWindow || this.contentDocument);
 						if (content.document) {
 							content = content.document;
 						}
@@ -202,7 +202,7 @@ akademy.webviews = akademy.webviews ||
 
 								if( viewData.textCheckDelay ) {
 									setTimeout(()=>{
-										var content = this.contentDocument;
+										const content = this.contentDocument;
 										if( content.body.innerText.indexOf(viewData.textCheck) === -1) {
 											divParent.classList.add("loaded-errored");
 										}
@@ -226,7 +226,7 @@ akademy.webviews = akademy.webviews ||
 						}
 
 						if( viewData.autoReload > 0 || _autoReload > 0 ) {
-							var reload = _autoReload;
+							let reload = _autoReload;
 							if (viewData.autoReload > 0) {
 								reload = viewData.autoReload;
 							}

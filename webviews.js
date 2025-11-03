@@ -1,28 +1,28 @@
 var akademy = akademy || {};
 akademy.webviews = akademy.webviews ||
 	function( config ) {
-		var _doc = document, // minify
+		var _document = document, // minify
 			configDefault = {
-			views : [
-				// This is a random collection of websites (partly random because I have no idea what domain it will be run on)
-				{url:"http://wouldlike.gift", title : "loaded but restricted"},
-				{url:"http://blog.akademy.co.uk/2017/04/webviews-seeing-all-your-website/" /* No Title */},
-				{url:"https://bitbucket.org/akademy/webviews", title : "Embed Not Allowed", openFull : true},
-				{url:"httpf://error.example.com", title : "Error Bad schema"},
-				{url:"http://!$&'()*+,;=.com", title : "Error Bad URL"},
-				{url:"http://qweetergfsadgdvvbboisfgergerhjokjnmtn.com", title : "Unknown website"},
-				{url:"http:/local", title : "Text found", textCheck: "Not Found", textCheckDelay: 2000 },
-				{url:"http://127.0.0.1", title : "OK", sandbox: ["allow-forms"] }
-			],
-			width: 206,
-			height: 136,
-			scale: 0.2,
-			element: _doc.body,
-			autoReload: 0
-		};
+				views : [
+					// This is a random collection of websites (partly random because I have no idea what domain it will be run on)
+					{url:"http://wouldlike.gift", title : "loaded but restricted"},
+					{url:"http://blog.akademy.co.uk/2017/04/webviews-seeing-all-your-website/" /* No Title */},
+					{url:"https://bitbucket.org/akademy/webviews", title : "Embed Not Allowed", openFull : true},
+					{url:"httpf://error.example.com", title : "Error Bad schema"},
+					{url:"http://!$&'()*+,;=.com", title : "Error Bad URL"},
+					{url:"http://qweetergfsadgdvvbboisfgergerhjokjnmtn.com", title : "Unknown website"},
+					{url:"http:/local", title : "Text found", textCheck: "Not Found", textCheckDelay: 2000 },
+					{url:"http://127.0.0.1", title : "OK", sandbox: ["allow-forms"] }
+				],
+				width: 206,
+				height: 136,
+				scale: 0.2,
+				element: _document.body,
+				autoReload: 0
+			};
 
 		config = config || {};
-		
+
 		var _size = {
 				w: config.width || configDefault.width,
 				h: config.height || configDefault.height
@@ -42,8 +42,8 @@ akademy.webviews = akademy.webviews ||
 				h: _size.h * 4
 			},
 			_windowSize = {
-				w: window.innerWidth || _doc.body.clientWidth,
-				h: window.innerHeight || _doc.body.clientHeight
+				w: window.innerWidth || _document.body.clientWidth,
+				h: window.innerHeight || _document.body.clientHeight
 			};
 
 		if( _fullSize.w > _windowSize.w ) {
@@ -54,8 +54,7 @@ akademy.webviews = akademy.webviews ||
 		}
 
 		//window.addEventListener("message", function( event ) { console.log("A window message:", event ); }, false);
-		window.addEventListener("load", function() {
-
+		function create() {
 			var style = createElement("style"), wrapperName = " .iframe-wrap";
 			style.appendChild(createTextNode(
 				wrapperName + ", iframe-wrap * {box-sizing:content-box !important;}" +
@@ -168,8 +167,8 @@ akademy.webviews = akademy.webviews ||
 			}
 
 			function setAttribute( element, attribute, value ) {element.setAttribute(attribute, value)}
-			function createElement( name ) {return _doc.createElement(name)}
-			function createTextNode( text ) {return _doc.createTextNode(text)}
+			function createElement( name ) {return _document.createElement(name)}
+			function createTextNode( text ) {return _document.createTextNode(text)}
 			function appendChild( parent, child ) {parent.appendChild(child)}
 
 			function updateATitle(a, aText) {
@@ -288,8 +287,7 @@ akademy.webviews = akademy.webviews ||
 				//iframe.style.overflow = "hidden";
 				setAttribute(iframe,"scrolling", "no");
 			}
+		}
 
-
-
-		}, false);
+		create();
 	};
